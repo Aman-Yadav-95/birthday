@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff0f4">
+    <title>A Birthday Surprise for You</title>
+        <link rel="stylesheet" href="style2.css">
+
+</head>
+<body data-scene="1">
+    <div class="cinematic-intro" id="cinematicIntro" aria-label="Cinematic birthday fireworks for Pooja">
+        <div class="night-sky" id="nightSky" aria-hidden="true"></div>
+        <canvas class="firework-canvas" id="fireworkCanvas" aria-hidden="true"></canvas>
+        <div class="intro-copy" aria-live="polite">
+            <p class="intro-kicker">A little universe made for you</p>
+            <p class="intro-happy">HAPPY</p>
+            <p class="intro-birthday">BIRTHDAY</p>
+            <h1 class="intro-name">POOJA <span>♥</span></h1>
+            <p class="intro-subtitle">Today is your special day ✨</p>
+        </div>
+        <button class="intro-continue" id="introContinue" type="button">Let's Begin ✨</button>
+        <p class="intro-instruction">Tap anywhere to send a little wish into the sky</p>
+    </div>
+
+    <!-- Ambient decorations stay behind the scenes and never block clicks. -->
+    <div class="ambient" aria-hidden="true">
+        <span class="ambient-heart">♥</span>
+        <span class="ambient-heart">♡</span>
+        <span class="ambient-heart">♥</span>
+        <span class="ambient-heart">♡</span>
+        <span class="ambient-heart">♥</span>
+        <span class="ambient-heart">♡</span>
+        <i class="sparkle"></i>
+        <i class="sparkle"></i>
+        <i class="sparkle"></i>
+        <i class="sparkle"></i>
+    </div>
+
+    <div class="top-controls">
+        <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Turn birthday music on">
+            ♫ Music: Off
+        </button>
+    </div>
+
+    <main>
+        <section class="scene is-active scene-one" data-scene="1" aria-label="Birthday cake">
+            <span class="cake-balloon left" aria-hidden="true"></span>
+            <span class="cake-balloon right" aria-hidden="true"></span>
+            <div class="scene-content">
+                <p class="eyebrow">A little birthday magic, just for you</p>
+                <div class="cake-wrap" aria-hidden="true">
+                    <span class="cake-sparkle one">✧</span>
+                    <span class="cake-sparkle two">✦</span>
+                    <span class="cake-sparkle three">✧</span>
+                    <div class="cake">
+                        <div class="candle candle-one"><span class="flame"></span></div>
+                        <div class="candle candle-two"><span class="flame"></span></div>
+                        <div class="candle candle-three"><span class="flame"></span></div>
+                        <div class="cake-top"></div>
+                        <div class="cake-body"></div>
+                    </div>
+                    <div class="cake-plate"></div>
+                </div>
+                <h1 class="script">Happy Birthday Pooja <span aria-label="love">♥</span></h1>
+                <p class="subtitle">Today is a special day because you were born.</p>
+                <p class="cake-hint" id="cakeHint">Make a wish, then tap to blow out the candles</p>
+            </div>
+        </section>
+
+        <section class="scene scene-two" data-scene="2" aria-label="Make a birthday wish">
+            <div class="scene-content">
+                <div class="burst" aria-hidden="true">♥</div>
+                <div class="burst" aria-hidden="true">✦</div>
+                <div class="burst" aria-hidden="true">♡</div>
+                <div class="burst" aria-hidden="true">✧</div>
+                <div class="burst" aria-hidden="true">♥</div>
+                <div class="burst" aria-hidden="true">✦</div>
+                <div class="burst" aria-hidden="true">✧</div>
+                <div class="burst" aria-hidden="true">♡</div>
+                <div class="cake-wrap" aria-hidden="true">
+                    <span class="cake-sparkle one">✧</span>
+                    <span class="cake-sparkle two">✦</span>
+                    <span class="cake-sparkle three">✧</span>
+                    <div class="cake">
+                        <div class="candle candle-one"><span class="flame"></span></div>
+                        <div class="candle candle-two"><span class="flame"></span></div>
+                        <div class="candle candle-three"><span class="flame"></span></div>
+                        <div class="cake-top"></div>
+                        <div class="cake-body"></div>
+                    </div>
+                    <div class="cake-plate"></div>
+                </div>
+                <h1 class="script wish-copy">Make a wish, Pooja... <span>✨</span></h1>
+                <p class="subtitle wish-followup">Because today is all about you <span>♥</span></p>
+            </div>
+        </section>
+
+        <section class="scene hunt-scene" data-scene="3" aria-label="Find three hidden hearts">
+            <div class="scene-content">
+                <p class="eyebrow">A tiny game, just for you</p>
+                <h1 class="interaction-title">Heart hunt <span>♡</span></h1>
+                <p class="interaction-copy" id="huntCopy">Catch the little heart three times to reveal your next surprise.</p>
+                <div class="hunt-count" id="huntCount" aria-label="Hearts found: zero of three">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <button class="hunt-heart" id="huntHeart" type="button" aria-label="Catch the moving heart">♥</button>
+        </section>
+
+        <section class="scene gift-scene" data-scene="4" aria-label="A birthday gift for Pooja">
+            <div class="scene-content">
+                <p class="eyebrow">Something lovely is waiting</p>
+                <h1 class="interaction-title">A little gift for you</h1>
+                <div class="gift-stage" id="giftStage" role="button" tabindex="0" aria-label="Open the birthday gift">
+                    <div class="gift-box"></div>
+                    <div class="gift-lid"></div>
+                    <div class="gift-bow"></div>
+                </div>
+                <span class="gift-sparkle" aria-hidden="true">♥</span>
+                <span class="gift-sparkle" aria-hidden="true">✦</span>
+                <span class="gift-sparkle" aria-hidden="true">✧</span>
+                <span class="gift-sparkle" aria-hidden="true">♡</span>
+                <span class="gift-sparkle" aria-hidden="true">✦</span>
+                <p class="interaction-copy gift-reveal" id="giftReveal">A little surprise for Pooja... 🎁❤️</p>
+                <button class="continue-chip" id="giftContinue" type="button">Open the next surprise →</button>
+                <p class="interaction-copy" id="giftPrompt">Tap the gift to open it</p>
+            </div>
+        </section>
+
+        <section class="scene letter-scene" data-scene="5" aria-label="A secret birthday letter">
+            <div class="scene-content">
+                <p class="eyebrow">A little note, sealed with love</p>
+                <h1 class="interaction-title">A secret for you</h1>
+                <div class="envelope-stage" id="envelopeStage" role="button" tabindex="0" aria-label="Open Pooja's secret birthday letter">
+                    <div class="envelope-body"></div>
+                    <div class="envelope-letter"><span class="letter-typed typing-caret" id="letterTyped"></span></div>
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-seal" aria-hidden="true">♥</div>
+                </div>
+                <p class="interaction-copy" id="letterPrompt">Tap the envelope to open your letter</p>
+                <button class="continue-chip" id="letterContinue" type="button">Keep going →</button>
+            </div>
+        </section>
+
+        <section class="scene constellation-scene" data-scene="6" aria-label="Connect the stars into a heart">
+            <div class="constellation-stage" id="constellationStage">
+                <svg class="constellation-lines" id="constellationSvg" aria-hidden="true" preserveAspectRatio="none">
+                    <polyline class="constellation-path" id="constellationPath" points=""></polyline>
+                </svg>
+                <div id="constellationStars"></div>
+            </div>
+            <div class="scene-content">
+                <p class="eyebrow">One little wish among the stars</p>
+                <h1 class="interaction-title">Find the heart in the sky</h1>
+                <p class="interaction-copy" id="constellationHint">Choose the glowing stars, and we'll draw you a little constellation.</p>
+            </div>
+            <div class="constellation-copy" id="constellationCopy">
+                <h2 class="interaction-title">Some memories are written in the stars. ✨</h2>
+            </div>
+        </section>
+
+        <section class="scene countdown-scene" data-scene="7" aria-label="A birthday countdown">
+            <div class="scene-content countdown-content" id="countdownContent">
+                <p class="eyebrow">The sky is getting ready for you</p>
+                <p class="countdown-number" id="countdownNumber" aria-live="polite">3</p>
+                <h1 class="countdown-reveal"><span>POOJA</span><span>DAY! ❤️</span></h1>
+                <p class="interaction-copy" id="countdownHint">A little birthday magic is just around the corner...</p>
+            </div>
+        </section>
+
+        <section class="scene scene-three" data-scene="8" aria-label="Birthday wishes">
+            <div class="scene-content">
+                <div class="lines-card glass-card">
+                    <p class="eyebrow">A few things worth celebrating</p>
+                    <p class="birthday-line">Some people make ordinary moments feel <span class="accent">special. ♥</span></p>
+                    <p class="birthday-line">Today is special because someone special was born.</p>
+                    <p class="birthday-line">Your smile deserves a whole sky full of fireworks. <span class="accent">✨</span></p>
+                    <p class="birthday-line">May your every day be filled with happiness.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="scene scene-four" data-scene="9" aria-label="A heartfelt birthday message">
+            <div class="scene-content">
+                <div class="heart-stage" aria-hidden="true">
+                    <span class="orbit-heart one">♡</span>
+                    <span class="orbit-heart two">♥</span>
+                    <span class="orbit-heart three">♡</span>
+                    <span class="orbit-heart four">♥</span>
+                    <span class="heart-sprout one">♥</span>
+                    <span class="heart-sprout two">♡</span>
+                    <span class="heart-sprout three">♥</span>
+                    <svg class="big-heart" viewBox="0 0 200 185" role="img" aria-label="A glowing heart">
+                        <defs>
+                            <linearGradient id="heartGradient" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#f7b5c9"/>
+                                <stop offset="52%" stop-color="#ee91b1"/>
+                                <stop offset="100%" stop-color="#d9769b"/>
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#heartGradient)" d="M100 174C91 166 16 108 16 58 16 27 38 10 63 10c18 0 31 10 37 25 7-15 20-25 38-25 25 0 47 17 47 48 0 50-75 108-85 116z"/>
+                        <path d="M45 43c8-10 19-14 30-12" fill="none" stroke="#fff" stroke-linecap="round" stroke-opacity=".72" stroke-width="5"/>
+                    </svg>
+                </div>
+                <h1 class="script">Happy Birthday <span class="birthday-heart" aria-label="love">❤️</span></h1>
+                <p class="subtitle">Pooja, you deserve all the happiness in the world.</p>
+            </div>
+        </section>
+
+        <section class="scene aman-scene" data-scene="10" aria-label="A birthday wish from Aman">
+            <div class="scene-content">
+                <p class="aman-preface">With lots of love and wishes...</p>
+                <h1 class="aman-signature">— Aman ❤️</h1>
+                <p class="aman-note">Someone who wanted to make your birthday a little more special. ✨</p>
+            </div>
+        </section>
+
+        <section class="scene scene-five" data-scene="11" aria-label="Photo memories">
+            <div class="scene-content">
+                <p class="eyebrow">Little moments, lovely memories</p>
+                <h1 class="memory-heading">Our little gallery <span>♥</span></h1>
+                <div class="memory-grid">
+                    <!-- // REPLACE THESE WITH POOJA'S PHOTOS -->
+                    <article class="memory-card glass-card">
+                        <!-- REPLACE THESE WITH POOJA'S PHOTOS: photo1.jpg -->
+                        <img class="memory-photo" src="train.png" alt="A beautiful birthday memory" loading="eager" decoding="async">
+                        <p class="memory-caption">A beautiful memory ♥</p>
+                    </article>
+                    <article class="memory-card glass-card">
+                        <!-- REPLACE THESE WITH POOJA'S PHOTOS: photo2.jpg -->
+                        <img class="memory-photo" src="photo2.jpg" alt="A photo of that lovely smile" loading="lazy" decoding="async">
+                        <p class="memory-caption">That smile ✨</p>
+                    </article>
+                    <article class="memory-card glass-card">
+                        <!-- REPLACE THESE WITH POOJA'S PHOTOS: photo3.jpg -->
+                        <img class="memory-photo" src="photo3.jpg" alt="A moment worth remembering" loading="lazy" decoding="async">
+                        <p class="memory-caption">A moment worth remembering 💗</p>
+                    </article>
+                    <article class="memory-card glass-card">
+                        <!-- REPLACE THESE WITH POOJA'S PHOTOS: photo4.jpg -->
+                        <img class="memory-photo" src="photo4.jpg" alt="Another sweet birthday memory" loading="lazy" decoding="async">
+                        <p class="memory-caption">One of my favourite days ♥</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="scene playful-scene" data-scene="12" aria-label="A playful birthday surprise">
+            <div class="scene-content">
+                <p class="eyebrow">One last very serious instruction</p>
+                <h1 class="interaction-title">I trust you completely...</h1>
+                <button class="playful-button" id="playfulButton" type="button">DO NOT CLICK 👀</button>
+                <p class="playful-reveal" id="playfulReveal" aria-live="polite">I knew you would click it 😂❤️</p>
+            </div>
+        </section>
+
+        <section class="scene scene-six final-scene" data-scene="13" aria-label="Final birthday surprise">
+            <div class="balloon" aria-hidden="true"></div>
+            <div class="balloon" aria-hidden="true"></div>
+            <div class="balloon" aria-hidden="true"></div>
+            <div class="balloon" aria-hidden="true"></div>
+            <div class="balloon" aria-hidden="true"></div>
+            <div class="final-sparkles" aria-hidden="true">
+                <i class="sparkle" style="top: 18%; left: 19%"></i>
+                <i class="sparkle" style="top: 28%; right: 17%"></i>
+                <i class="sparkle" style="bottom: 26%; left: 22%"></i>
+                <i class="sparkle" style="right: 24%; bottom: 18%"></i>
+            </div>
+            <div class="scene-content">
+                <span class="mega-heart" aria-hidden="true">♥</span>
+                <span class="final-heart" aria-hidden="true">♥</span>
+                <h1 class="final-title">HAPPY BIRTHDAY POOJA <span aria-label="love">♥</span></h1>
+                <p class="final-copy">Keep smiling, keep shining, and keep being you. ✨</p>
+                <p class="final-signoff">This little surprise was made just for you. 💗</p>
+            </div>
+        </section>
+    </main>
+
+    <div class="progress" aria-live="polite" aria-label="Scene progress">
+        <span id="progressNumber">1 / 13</span>
+        <span class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></span>
+    </div>
+    <button class="next-hint" id="nextHint" type="button" aria-label="Continue to the next birthday scene">
+        Tap anywhere to continue <span aria-hidden="true">→</span>
+    </button>
+
+    <!-- Place birthday.mp3 in the same folder as index3.html. Replace the filename here if needed. -->
+    <audio id="birthdayMusic" loop preload="metadata">
+        <source src="birthday.mp3" type="audio/mpeg">
+    </audio>
+
+        <script src="script.js" defer></script>
+
+</body>
+</html>
