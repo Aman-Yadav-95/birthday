@@ -31,16 +31,8 @@
     const letterPrompt = document.getElementById("letterPrompt");
     const letterContinue = document.getElementById("letterContinue");
 
-    const constellationStars =
-        document.getElementById("constellationStars");
-    const constellationSvg =
-        document.getElementById("constellationSvg");
-    const constellationPath =
-        document.getElementById("constellationPath");
-    const constellationHint =
-        document.getElementById("constellationHint");
-    const constellationCopy =
-        document.getElementById("constellationCopy");
+    const heartReveal =
+        document.getElementById("heartReveal");
 
     const countdownScene =
         document.querySelector(".countdown-scene");
@@ -78,25 +70,6 @@
     const rockets = [];
     const particles = [];
     const shockwaves = [];
-    const selectedStars = [];
-
-    const heartHuntPoints = [
-        [50, 71],
-        [37, 62],
-        [27, 51],
-        [23, 41],
-        [26, 32],
-        [33, 28],
-        [41, 30],
-        [50, 39],
-        [59, 30],
-        [67, 28],
-        [74, 32],
-        [77, 41],
-        [73, 51],
-        [63, 62]
-    ];
-
     let width = window.innerWidth;
     let height = window.innerHeight;
 
@@ -117,7 +90,7 @@
     let letterOpened = false;
     let letterFinished = false;
 
-    let constellationFinished = false;
+    let heartRevealFinished = false;
     let countdownFinished = false;
     let playfulRevealed = false;
 
@@ -133,6 +106,15 @@
     let finaleTimers = [];
 
     let finaleGlyphs = [];
+
+    heartReveal.addEventListener(
+        "animationend",
+        (event) => {
+            if (event.animationName === "heart-reveal-in") {
+                heartRevealFinished = true;
+            }
+        }
+    );
     let finaleGlyphStarted = 0;
 
 
@@ -280,10 +262,6 @@
             0
         );
 
-        constellationSvg.setAttribute(
-            "viewBox",
-            `0 0 ${width} ${height}`
-        );
     }
 
 
@@ -1539,7 +1517,7 @@
 
 
         const message =
-            "If happiness had a name,\ntoday I'd call it Pooja. ❤️";
+            "tumsa koi pyara koi,\nmasum nhi hai \ntum cheez kya ho\n khud tumhe malum nhi hai. ❤️";
 
         let character = 0;
 
@@ -1590,203 +1568,6 @@
                 1050
             )
         );
-    }
-
-
-    /* =========================
-       CONSTELLATION
-    ========================= */
-
-    function setupConstellation() {
-
-        if (
-            constellationStars.childElementCount
-        ) {
-            return;
-        }
-
-
-        heartHuntPoints.forEach(
-            ([x, y], index) => {
-
-                const star =
-                    document.createElement("button");
-
-                star.type = "button";
-
-                star.className =
-                    "constellation-star";
-
-                star.textContent = "✦";
-
-                star.setAttribute(
-                    "aria-label",
-                    `Connect constellation star ${
-                        index + 1
-                    }`
-                );
-
-                star.dataset.index =
-                    String(index);
-
-                star.style.setProperty(
-                    "--sx",
-                    `${x}%`
-                );
-
-                star.style.setProperty(
-                    "--sy",
-                    `${y}%`
-                );
-
-                constellationStars.append(
-                    star
-                );
-            }
-        );
-
-
-        // Background stars reduced
-        for (
-            let index = 0;
-            index < 16;
-            index++
-        ) {
-
-            const star =
-                document.createElement("span");
-
-            star.className =
-                "constellation-star is-background";
-
-            star.textContent =
-                index % 4 === 0
-                    ? "✧"
-                    : "·";
-
-            star.style.setProperty(
-                "--sx",
-                `${4 + Math.random() * 92}%`
-            );
-
-            star.style.setProperty(
-                "--sy",
-                `${8 + Math.random() * 82}%`
-            );
-
-            star.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-            constellationStars.append(
-                star
-            );
-        }
-    }
-
-
-    function selectConstellationStar(
-        star
-    ) {
-
-        if (
-            constellationFinished ||
-            star.classList.contains("is-selected")
-        ) {
-            return;
-        }
-
-
-        star.classList.add(
-            "is-selected"
-        );
-
-
-        selectedStars.push(
-            Number(star.dataset.index)
-        );
-
-
-        const selectedPoints =
-            selectedStars.map(
-                (index) => {
-
-                    const [x, y] =
-                        heartHuntPoints[index];
-
-                    return `${
-                        x / 100 * width
-                    },${
-                        y / 100 * height
-                    }`;
-                }
-            );
-
-
-        constellationPath.setAttribute(
-            "points",
-            selectedPoints.join(" ")
-        );
-
-
-        if (
-            selectedStars.length >=
-            heartHuntPoints.length
-        ) {
-
-            const orderedHeart =
-                heartHuntPoints.map(
-                    ([x, y]) =>
-                        `${
-                            x / 100 * width
-                        },${
-                            y / 100 * height
-                        }`
-                );
-
-
-            orderedHeart.push(
-                orderedHeart[0]
-            );
-
-
-            constellationPath.setAttribute(
-                "points",
-                orderedHeart.join(" ")
-            );
-
-
-            constellationPath.classList.add(
-                "is-drawn"
-            );
-
-
-            constellationFinished = true;
-
-            constellationHint.textContent =
-                "A little heart, written in the stars just for you.";
-
-            constellationCopy.classList.add(
-                "is-visible"
-            );
-
-
-            heartBurst(
-                width / 2,
-                height / 2,
-                24
-            );
-
-            return;
-        }
-
-
-        constellationHint.textContent =
-            `${
-                heartHuntPoints.length
-                - selectedStars.length
-            } glowing stars left to connect...`;
     }
 
 
@@ -2320,11 +2101,6 @@
         }
 
 
-        if (index === 5) {
-            setupConstellation();
-        }
-
-
         if (index === 6) {
             beginCountdown();
         }
@@ -2432,7 +2208,7 @@
 
         if (
             currentScene === 5 &&
-            !constellationFinished
+            !heartRevealFinished
         ) {
             return;
         }
@@ -2675,7 +2451,7 @@
             if (
                 !target ||
                 target.closest(
-                    "#musicToggle, #introContinue, #nextHint, #giftContinue, #letterContinue, .photo-lightbox"
+                    "#musicToggle, #introContinue, #nextHint, #giftContinue, #letterContinue, .photo-lightbox, video"
                 )
             ) {
                 return;
@@ -2729,24 +2505,6 @@
             ) {
 
                 openLetter();
-
-                return;
-            }
-
-
-            const star =
-                target.closest(
-                    ".constellation-star:not(.is-background)"
-                );
-
-
-            if (
-                star instanceof HTMLButtonElement
-            ) {
-
-                selectConstellationStar(
-                    star
-                );
 
                 return;
             }
@@ -2811,7 +2569,7 @@
             if (
                 event.target instanceof Element &&
                 event.target.closest(
-                    "button, [role='button'], #musicToggle, #nextHint, #introContinue"
+                    "button, [role='button'], #musicToggle, #nextHint, #introContinue, video"
                 )
             ) {
                 return;
@@ -2849,8 +2607,6 @@
     resizeCanvas();
 
     scheduleIntroFireworks();
-
-    setupConstellation();
 
     updateMusicButton();
 
