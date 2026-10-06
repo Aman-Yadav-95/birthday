@@ -440,6 +440,26 @@
             border-radius: 32px;
         }
 
+        .birthday-video {
+            display: block;
+            width: 100%;
+            max-height: min(55vh, 460px);
+            aspect-ratio: 16 / 9;
+            border: 1px solid rgb(255 255 255 / 78%);
+            border-radius: 20px;
+            background: #321f2a;
+            box-shadow: 0 12px 34px rgb(164 91 120 / 24%), 0 0 0 4px rgb(255 255 255 / 36%);
+            object-fit: contain;
+        }
+
+        .birthday-video-caption {
+            margin: 18px 0 0;
+            color: #815d70;
+            font-family: "Palatino Linotype", Georgia, serif;
+            font-size: clamp(.95rem, 2.5vw, 1.15rem);
+            line-height: 1.5;
+        }
+
         .birthday-line {
             margin: 17px 0;
             color: #815d70;
@@ -1518,7 +1538,7 @@
 
         .gift-scene,
         .letter-scene,
-        .constellation-scene,
+        .heart-reveal-scene,
         .countdown-scene,
         .playful-scene {
             background: transparent;
@@ -1789,96 +1809,91 @@
             content: "";
         }
 
-        .constellation-scene {
+        .heart-reveal-scene {
             color: #fff8fd;
             background: radial-gradient(ellipse at 50% 50%, #563b5e 0%, #34253f 43%, #201b32 100%);
         }
 
-        .constellation-scene .eyebrow,
-        .constellation-scene .interaction-title,
-        .constellation-scene .interaction-copy {
+        .heart-reveal-scene .eyebrow,
+        .heart-reveal-scene .interaction-title,
+        .heart-reveal-scene .interaction-copy {
             color: #ffeaf4;
         }
 
-        .constellation-stage {
+        .heart-reveal-stage {
             position: absolute;
             inset: 0;
             z-index: 1;
-        }
-
-        .constellation-lines {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            overflow: visible;
             pointer-events: none;
         }
 
-        .constellation-path {
-            fill: none;
-            stroke: #ffc4e0;
-            stroke-width: 2.1;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            filter: drop-shadow(0 0 7px #f2a8d0);
-            transition: filter 700ms ease, stroke-width 500ms ease;
-        }
-
-        .constellation-path.is-drawn {
-            stroke-width: 3;
-            filter: drop-shadow(0 0 12px #f2a8d0);
-        }
-
-        .constellation-star {
+        .heart-reveal {
             position: absolute;
-            left: var(--sx);
-            top: var(--sy);
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            border: 0;
-            color: rgb(255 240 253 / 83%);
-            background: transparent;
-            font-size: 21px;
-            text-shadow: 0 0 9px #ffe8f9;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            transition: color 250ms ease, transform 250ms ease, text-shadow 250ms ease;
-            touch-action: manipulation;
+            top: 53%;
+            left: 50%;
+            color: #ffb3d4;
+            font-size: clamp(7rem, 19vw, 12rem);
+            line-height: 1;
+            opacity: 0;
+            text-shadow: 0 8px 28px rgb(255 155 201 / 28%);
+            transform: translate(-50%, -45%) scale(.65) rotate(-8deg);
         }
 
-        .constellation-star:hover,
-        .constellation-star.is-selected {
-            color: #ffb6dc;
-            text-shadow: 0 0 17px #ff9bd0;
-            transform: translate(-50%, -50%) scale(1.3);
+        .heart-reveal-scene.is-active .heart-reveal {
+            animation: heart-reveal-in 1100ms cubic-bezier(.2,.75,.25,1) 150ms both;
         }
 
-        .constellation-star.is-background {
-            color: rgb(255 249 255 / 68%);
-            font-size: 13px;
-            pointer-events: none;
+        .heart-reveal-particle {
+            position: absolute;
+            top: 53%;
+            left: 50%;
+            color: #ffe0ef;
+            font-size: clamp(1rem, 2.8vw, 1.6rem);
+            opacity: 0;
+            text-shadow: 0 0 10px rgb(255 205 231 / 35%);
         }
 
-        .constellation-copy {
+        .heart-reveal-particle.one {
+            --particle-x: -82px;
+            --particle-y: -45px;
+        }
+
+        .heart-reveal-particle.two {
+            --particle-x: 76px;
+            --particle-y: -56px;
+        }
+
+        .heart-reveal-particle.three {
+            --particle-x: -67px;
+            --particle-y: 44px;
+        }
+
+        .heart-reveal-particle.four {
+            --particle-x: 84px;
+            --particle-y: 38px;
+        }
+
+        .heart-reveal-scene.is-active .heart-reveal-particle {
+            animation: heart-particle-reveal 1050ms ease-out 300ms both;
+        }
+
+        .heart-reveal-copy {
             position: absolute;
             z-index: 3;
-            top: 18%;
+            bottom: 17%;
             left: 50%;
             width: min(90%, 700px);
             opacity: 0;
-            transform: translate(-50%, 12px);
-            transition: opacity 850ms ease, transform 850ms ease;
+            text-align: center;
+            transform: translate(-50%, 10px);
             pointer-events: none;
         }
 
-        .constellation-copy.is-visible {
-            opacity: 1;
-            transform: translate(-50%, 0);
+        .heart-reveal-scene.is-active .heart-reveal-copy {
+            animation: heart-copy-reveal 700ms ease 750ms both;
         }
 
-        .constellation-scene .scene-content {
+        .heart-reveal-scene .scene-content {
             position: absolute;
             top: 8%;
             left: 50%;
@@ -1886,12 +1901,40 @@
             pointer-events: none;
         }
 
-        .constellation-scene .scene-content > * {
+        .heart-reveal-scene .scene-content > * {
             pointer-events: none;
         }
 
-        .constellation-scene .interaction-title {
+        .heart-reveal-scene .interaction-title {
             font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        @keyframes heart-reveal-in {
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1) rotate(0);
+            }
+        }
+
+        @keyframes heart-particle-reveal {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(.5);
+            }
+            35% {
+                opacity: .85;
+            }
+            to {
+                opacity: 0;
+                transform: translate(var(--particle-x), var(--particle-y)) scale(.7);
+            }
+        }
+
+        @keyframes heart-copy-reveal {
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
         }
 
         .countdown-scene {
@@ -2125,8 +2168,8 @@
             .envelope-body { bottom: 14px; height: 160px; }
             .envelope-flap { top: 50px; height: 108px; }
             .envelope-seal { top: 122px; }
-            .constellation-scene .scene-content { top: 12%; }
-            .constellation-copy { top: 22%; }
+            .heart-reveal-scene .scene-content { top: 12%; }
+            .heart-reveal-copy { bottom: 15%; }
             .scene-six .final-title { font-size: clamp(2rem, 9vw, 3.6rem); }
             .scene-six .final-copy { font-size: 1rem; }
         }
@@ -2464,6 +2507,13 @@
             .scene-four .birthday-heart,
             .heart-sprout {
                 animation: none;
+            }
+
+            .heart-reveal-scene.is-active .heart-reveal,
+            .heart-reveal-scene.is-active .heart-reveal-particle,
+            .heart-reveal-scene.is-active .heart-reveal-copy {
+                animation-duration: 1ms;
+                animation-delay: 0ms;
             }
 
             .aman-preface,
